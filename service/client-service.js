@@ -1,8 +1,8 @@
 const table = document.querySelector("[data-table]");
 
-const crearNewLine = (nombre, email)=>{
-    const line = document.createElement("tr")
-    const tr = `
+const crearNewLine = (nombre, email) => {
+  const line = document.createElement("tr");
+  const tr = `
     <td class="td" data-td>${nombre}</td>
     <td>${email}</td>
     <td>
@@ -24,26 +24,45 @@ const crearNewLine = (nombre, email)=>{
         </li>
       </ul>
     </td>
-    `
+    `;
 
-    line.innerHTML += tr;
+  line.innerHTML += tr;
 
-    return line;
-}
+  return line;
+};
+
+const lineClientes = () => {
+  const promise = new Promise((resolve, reject) => {
+    const http = new XMLHttpRequest();
+
+    http.open("GET", "http://localhost:3000/perfil");
+    http.send();
+
+    http.onload = () => {
+      const response = JSON.parse(http.response);
+
+      if(http.status >= 400){
+        reject(response)
+      }else{
+        resolve(response)
+      }
+
+    };
+  });
+
+  return promise;
+};
 
 
-const http = new XMLHttpRequest;
+lineClientes().then((data)=>{
+  console.log(data)
 
-http.open('GET','http://localhost:3000/perfil');
+  data.forEach((element) => {
+  const newLine = crearNewLine(element.nombre, element.email);
+  table.appendChild(newLine);
+});
 
-http.send();
-http.onload = ()=>{
-    const data = JSON.parse(http.response);
-    console.log(data)
-    
-    data.forEach((element)=>{
-        const newLine = crearNewLine(element.nombre, element.email);
-        table.appendChild(newLine);
-    })
-}
-console.log(http)
+}).catch((error)=>{
+  alert('ocurrió un error');
+})
+
