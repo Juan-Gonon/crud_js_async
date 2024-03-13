@@ -31,30 +31,14 @@ const crearNewLine = (nombre, email) => {
   return line;
 };
 
-const lineClientes = () => {
-  const promise = new Promise((resolve, reject) => {
-    const http = new XMLHttpRequest();
+const listCliente = () => {
+  return fetch('http://localhost:3000/perfil').then((response) => response.json())
+}
 
-    http.open("GET", "http://localhost:3000/perfil");
-    http.send();
-
-    http.onload = () => {
-      const response = JSON.parse(http.response);
-
-      if(http.status >= 400){
-        reject(response)
-      }else{
-        resolve(response)
-      }
-
-    };
-  });
-
-  return promise;
-};
+listCliente()
 
 
-lineClientes().then((data)=>{
+listCliente().then((data)=>{
   console.log(data)
 
   data.forEach((element) => {
