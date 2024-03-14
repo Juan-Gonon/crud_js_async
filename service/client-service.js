@@ -30,12 +30,27 @@ const detalleClient = (id)=>{
   })
 }
 
+const updateClient = (nombre, email, id)=>{
+  return fetch(`http://localhost:3000/perfil/${id}`,{
+    method: 'PUT',
+    headers:{
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({nombre, email})
+  }).then((res)=>{
+    return res.json();
+  }).catch((e)=>{
+    console.error(e);
+  })
+}
+
 
 export const clientServices = {
   listCliente,
   crearCliente,
   deleteCaliente,
   detalleClient,
+  updateClient
 }
 
 
