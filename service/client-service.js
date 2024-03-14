@@ -24,11 +24,18 @@ const deleteCaliente = (id)=>{
   })
 }
 
+const detalleClient = (id)=>{
+  return fetch(`http://localhost:3000/perfil/${id}`).then((res)=>{
+    return res.json()
+  })
+}
+
 
 export const clientServices = {
   listCliente,
   crearCliente,
-  deleteCaliente
+  deleteCaliente,
+  detalleClient,
 }
 
 
