@@ -3,9 +3,6 @@ import { clientServices } from "../service/client-service.js";
 
 const formulario = document.querySelector("[data-form]");
 
-
-
-
 const getInfo = async ()=>{
     const url = new URL(window.location);
     const id = url.searchParams.get("id");
@@ -17,11 +14,25 @@ const getInfo = async ()=>{
     const inputNombre = document.querySelector("[data-nombre]");
     const inputEmail = document.querySelector("[data-email]");
 
-    const perfil = await clientServices.detalleClient(id);
-   
-    inputNombre.value = perfil.nombre;
-    inputEmail.value = perfil.email;
 
+    try{
+        const perfil = await clientServices.detalleClient(id);
+        console.log()
+        
+        if(perfil.nombre && perfil.email){
+            inputNombre.value = perfil.nombre;
+            inputEmail.value = perfil.email;
+        }else{
+            throw new Error('Error al obtener cliente');
+            
+        }
+    
+    }catch(e){
+        //alert('Catch Error - ', e.message)
+        window.location.href = "../screens/error.html"
+    }
+
+  
 }
 
 getInfo()
@@ -34,7 +45,6 @@ formulario.addEventListener('submit', (e)=>{
     const nombre = document.querySelector("[data-nombre]").value;
     const email = document.querySelector("[data-email]").value;
 
-    console.log(nombre, email)
 
     clientServices.updateClient(nombre, email, id).then((res)=>{
         window.location.href = "../screens/edicion_concluida.html"
