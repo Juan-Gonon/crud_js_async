@@ -1,9 +1,19 @@
 {
   "perfil": [
     {
-      "nombre": "Juan",
-      "email": "juan@gmail.com",
-      "id": 1
+      "nombre": "Paco",
+      "email": "pedro@gmail.com",
+      "id": "67dac21f-ddaa-4c37-9b4c-9d2160a56cb5"
+    },
+    {
+      "nombre": "kamila",
+      "email": "kamila@gmail.com",
+      "id": "9897163d-f26d-4a45-ae33-ce68090e5c55"
+    },
+    {
+      "nombre": "anna",
+      "email": "anna@gmail.com",
+      "id": "f8fefee4-0552-4039-ba24-fda4907e19c6"
     }
   ]
 }
