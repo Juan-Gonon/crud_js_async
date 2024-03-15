@@ -6,7 +6,7 @@ const formulario = document.querySelector("[data-form]");
 
 
 
-const getInfo = ()=>{
+const getInfo = async ()=>{
     const url = new URL(window.location);
     const id = url.searchParams.get("id");
 
@@ -17,13 +17,10 @@ const getInfo = ()=>{
     const inputNombre = document.querySelector("[data-nombre]");
     const inputEmail = document.querySelector("[data-email]");
 
-
-    clientServices.detalleClient(id).then(({nombre, email})=>{
-        console.log(nombre, email)
-
-        inputNombre.value = nombre;
-        inputEmail.value = email;
-    })
+    const perfil = await clientServices.detalleClient(id);
+   
+    inputNombre.value = perfil.nombre;
+    inputEmail.value = perfil.email;
 
 }
 
